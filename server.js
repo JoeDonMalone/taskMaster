@@ -41,7 +41,7 @@ app.post('/api/notes', (req, res) => {
 app.delete("/api/notes/:id", function(req, res) {
     let db = require('./Develop/db/db.json');
     let id = req.params.id;
-    console.log('prefilter', db);
+    // console.log('prefilter', db);
     let data = db.filter(obj => obj.id !== id)
     console.log('Data Consts:',data)
     
@@ -49,11 +49,11 @@ app.delete("/api/notes/:id", function(req, res) {
             if(err) {
                 return console.log(err);
             }
-            console.log(`The file was ${data}`);
+            // console.log(`The file was ${data}`);
             
         });
-        console.log('DB Consts:',db)
-        res.send(req.body.notes);
+        // console.log('DB Consts:',db)
+        res.json(data);
   });
 
 
