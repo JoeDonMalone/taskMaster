@@ -46,7 +46,7 @@ app.delete("/api/notes/:id", function(req, res) {
             }
             console.log("The file was saved!");
         });
-        res.json(data)
+        res.json(db)
   });
 
 
