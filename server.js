@@ -1,5 +1,4 @@
 const express = require('express');
-const { fstat } = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
@@ -37,6 +36,18 @@ app.post('/api/notes', (req, res) => {
     
     res.json(db);
 });
+
+app.delete("/api/notes/:id", function(req, res) {
+    let id = req.params.id;
+    let data = db.filter( obj => obj.id !== id);
+    fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        });
+        res.json(data)
+  });
 
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
