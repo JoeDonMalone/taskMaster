@@ -39,14 +39,22 @@ app.post('/api/notes', (req, res) => {
 
 app.delete("/api/notes/:id", function(req, res) {
     let id = req.params.id;
-    let data = db.filter( obj => obj.id !== id);
+    console.log(db)
+    let data = db.filter(obj => obj.id !== id)
+    // for (let i=0; i<db.length; i++){
+    //     if (uid === db[i].id) {
+    //         db.splice(i, 1);
+    //     }
+    // };
+    // res.json(db);
+    
     fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
             if(err) {
                 return console.log(err);
             }
-            console.log("The file was saved!");
+            console.log(`The file was ${data}`);
         });
-        res.json(db)
+        res.json(db);
   });
 
 
