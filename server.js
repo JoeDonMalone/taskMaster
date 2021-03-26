@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
-const db = require('./Develop/db/db.json');
 const fs = require('fs')
 app.use(express.static('./Develop/public'));
 
@@ -19,10 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 app.get('/api/notes', (req, res) => {
+    let db = require('./Develop/db/db.json');
     res.json(db);
 });
 
 app.post('/api/notes', (req, res) => {
+    let db = require('./Develop/db/db.json');
     let data = req.body;
     let randomID = new Date();
     data.id = randomID;
@@ -38,23 +39,21 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete("/api/notes/:id", function(req, res) {
+    let db = require('./Develop/db/db.json');
     let id = req.params.id;
-    console.log(db)
+    console.log('prefilter', db);
     let data = db.filter(obj => obj.id !== id)
-    // for (let i=0; i<db.length; i++){
-    //     if (uid === db[i].id) {
-    //         db.splice(i, 1);
-    //     }
-    // };
-    // res.json(db);
+    console.log('Data Consts:',data)
     
     fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
             if(err) {
                 return console.log(err);
             }
             console.log(`The file was ${data}`);
+            
         });
-        res.json(db);
+        console.log('DB Consts:',db)
+        res.send(req.body.notes);
   });
 
 
