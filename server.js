@@ -1,23 +1,42 @@
 const express = require('express');
+const { fstat } = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
+const db = require('./Develop/db/db.json');
+const fs = require('fs')
 app.use(express.static('./Develop/public'));
 
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
-    
 });
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/index.html'));
 });
 
-// require('./Develop/routes/apiroutes.js')(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+app.get('/api/notes', (req, res) => {
+    res.json(db);
+});
+
+app.post('/api/notes', (req, res) => {
+    let data = req.body;
+    let randomID = new Date();
+    data.id = randomID;
+    db.push(data);
+    fs.writeFile('./Develop/db/db.json',JSON.stringify(db), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
+    
+    res.json(db);
+});
 
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
