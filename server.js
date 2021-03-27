@@ -46,6 +46,7 @@ app.delete("/api/notes/:id", function(req, res) {
             console.log("The file was saved!");
             res.statusCode
         });
-        res.json(data);
+        let db = require(path.join(__dirname, './Develop/db/db.json'));
+        res.json(db);
   });
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
