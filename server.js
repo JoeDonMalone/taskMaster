@@ -44,15 +44,15 @@ app.delete("/api/notes/:id", function(req, res) {
     // console.log('prefilter', db);
     let data = db.filter(obj => obj.id !== id)
     console.log('Data Consts:',data)
-    
-    fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
+    db.push(data);
+    filePath = path.join(__dirname, './Develop/db/db.json');
+    console.log(filePath)
+    fs.writeFile(filePath, JSON.stringify(data),  function(err) {
             if(err) {
                 return console.log(err);
             }
-            // console.log(`The file was ${data}`);
             
         });
-        // console.log('DB Consts:',db)
         res.json(data);
   });
 
