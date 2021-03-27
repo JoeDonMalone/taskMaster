@@ -45,7 +45,6 @@ app.delete("/api/notes/:id", function(req, res) {
                 return console.log(err);
             } res.json(db);
         });
-        console.log("sending res via file")
-        res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
+        res.json(db);
   });
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
