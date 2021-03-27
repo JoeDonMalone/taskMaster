@@ -33,7 +33,6 @@ app.post('/api/notes', (req, res) => {
         }
         console.log("The file was saved!");
     });
-    
     res.json(db);
 });
 
@@ -43,8 +42,10 @@ app.delete("/api/notes/:id", function(req, res) {
     fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
             if(err) {
                 return console.log(err);
-            } res.json(db);
+            } 
+            console.log("The file was saved!");
+            
         });
-        res.json(db);
+        res.json();
   });
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
