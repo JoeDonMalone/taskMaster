@@ -21,6 +21,7 @@
   "homepage": "https://github.com/JoeDonMalone/taskMaster#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.0.0"
   }
 }

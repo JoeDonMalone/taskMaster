@@ -37,7 +37,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete("/api/notes/:id", function(req, res) {
-    let id = req.params.id;
+    let {id} = req.params;
     let data = db.filter(obj => obj.id !== id)
     fs.writeFile(path.join(__dirname, './Develop/db/db.json'), JSON.stringify(data),  function(err) {
             if(err) {
@@ -46,7 +46,6 @@ app.delete("/api/notes/:id", function(req, res) {
             console.log("The file was saved!");
             res.statusCode
         });
-        res.statusCode
         res.json(data);
   });
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}!`));
