@@ -39,21 +39,16 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete("/api/notes/:id", function(req, res) {
-    let db = require('./Develop/db/db.json');
+    let db = require(path.join(__dirname, './Develop/db/db.json'));
     let id = req.params.id;
-    // console.log('prefilter', db);
     let data = db.filter(obj => obj.id !== id)
-    console.log('Data Consts:',data)
-    db.push(data);
-    filePath = path.join(__dirname, './Develop/db/db.json');
-    console.log(filePath)
-    fs.writeFile(filePath, JSON.stringify(data),  function(err) {
+    console.log(path.join(__dirname, './Develop/db/db.json'))
+    fs.writeFile(path.join(__dirname, './Develop/db/db.json'), JSON.stringify(data),  function(err) {
             if(err) {
                 return console.log(err);
-            }
-            
+            } res.json(db);
         });
-        res.json(data);
+        res.json(db);
   });
 
 
