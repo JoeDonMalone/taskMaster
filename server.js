@@ -39,7 +39,7 @@ app.post('/api/notes', (req, res) => {
 app.delete("/api/notes/:id", function(req, res) {
     let id = req.params.id;
     let data = db.filter(obj => obj.id !== id)
-    fs.writeFile('./Develop/db/db.json', JSON.stringify(data),  function(err) {
+    fs.writeFile('./Develop/db/db.json', JSON.stringify(data), async function(err) {
             if(err) {
                 return console.log(err);
             } 
